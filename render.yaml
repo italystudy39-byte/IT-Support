@@ -1,0 +1,26 @@
+# Render Blueprint: бесплатный веб-сервис с ботом (режим вебхука)
+services:
+  - type: web
+    name: it-helpdesk-bot
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m helpdesk.channels.telegram_bot
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: LLM_PROVIDER
+        value: gemini
+      - key: GEMINI_MODEL
+        value: gemini-flash-lite-latest
+      - key: GEMINI_FALLBACK_MODELS
+        value: gemini-flash-latest
+      - key: TICKETS_BACKEND
+        value: mock
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: IT_SUPPORT_CHAT_ID
+        sync: false
